@@ -27,4 +27,10 @@ export class AppComponent {
   holamundo3():void{
     const result = 2+2;
   }
+
+
+
+  holamundo4():void{
+    const result = 2+2;
+  }
 }
