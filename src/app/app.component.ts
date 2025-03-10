@@ -17,4 +17,9 @@ export class AppComponent {
   holamundo():void{
     const result = 2+2;
   }
+
+
+  holamundo2():void{
+    const result = 2+2;
+  }
 }
