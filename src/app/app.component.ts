@@ -9,4 +9,12 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'Product list';
+
+  private holaMundo():void{
+
+  }
+
+  holamundo():void{
+    const result = 2+2;
+  }
 }
