@@ -10,6 +10,7 @@
 @use "text";
 @use "spacing";
 @use "rounded";
+@use "table";
 
 $utilities: functions.map-collect(variables.$utilities,
     display.$utilities,

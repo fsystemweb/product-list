@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MaterialModule } from '../../../../vendor/material.module';
-import { Router } from '@angular/router';
 
 // table 1
 interface productsData {
@@ -33,16 +32,11 @@ const PRODUCT_DATA: productsData[] = [
 ];
 
 @Component({
-  selector: 'app-categories-table',
+  selector: 'app-products-table',
   imports: [CommonModule, MaterialModule],
-  templateUrl: './categories-table.component.html',
+  templateUrl: './products-table.component.html',
 })
-export class CategoriesTableComponent {
-  private router: Router = inject(Router);
-  displayedColumns: string[] = ['name', 'products'];
+export class ProductsTableComponent {
+  displayedColumns1: string[] = ['name', 'products'];
   dataSource1 = PRODUCT_DATA;
-
-  onRowClick(row: productsData): void {
-    this.router.navigate(['/products', row.slug]);
-  }
 }

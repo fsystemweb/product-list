@@ -11,4 +11,8 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
   },
+  {
+    path: 'products/:slug',
+    loadChildren: () => import('./features/products/products.module').then(m => m.ProductsModule),
+  },
 ];
