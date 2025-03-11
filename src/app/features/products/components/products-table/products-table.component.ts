@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MaterialModule } from '../../../../vendor/material.module';
+import { ProductsHeadComponent } from '../products-head/products-head.component';
 
 // table 1
 interface productsData {
@@ -33,7 +34,7 @@ const PRODUCT_DATA: productsData[] = [
 
 @Component({
   selector: 'app-products-table',
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, MaterialModule, ProductsHeadComponent],
   templateUrl: './products-table.component.html',
 })
 export class ProductsTableComponent {
