@@ -14,7 +14,6 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppNavItemComponent } from './sidebar/nav-item/nav-item.component';
 import { navItems } from './sidebar/sidebar-data';
-import { AppTopstripComponent } from './top-strip/topstrip.component';
 import { MaterialModule } from '../vendor/material.module';
 import { CoreService } from '../services/core.service';
 
@@ -32,7 +31,6 @@ const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
     NgScrollbarModule,
     TablerIconsModule,
     HeaderComponent,
-    AppTopstripComponent,
   ],
   standalone: true,
   templateUrl: './layout.component.html',
@@ -57,14 +55,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
   private isMobileScreen = false;
   private isContentWidthFixed = true;
   private isCollapsedWidthFixed = false;
-  private htmlElement: HTMLHtmlElement;
 
   get isOver(): boolean {
     return this.isMobileScreen;
   }
 
   constructor() {
-    this.htmlElement = this.getHtmlElement();
     this.layoutChangesSubscription = this.breakpointObserver
       .observe([MOBILE_VIEW, TABLET_VIEW])
       .subscribe(state => {
@@ -121,13 +117,5 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.layoutChangesSubscription.unsubscribe();
-  }
-
-  private getHtmlElement(): HTMLHtmlElement {
-    const element = document.querySelector('html');
-    if (!element) {
-      throw new Error('HTML element not found');
-    }
-    return element;
   }
 }
