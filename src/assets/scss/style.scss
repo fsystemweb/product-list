@@ -18,7 +18,3 @@
 @use "grid/grid";
 @use "helpers/custom-flex";
 @use "helpers";
-
-// pages
-@use "pages/auth";
-@foward "pages/dashboards";

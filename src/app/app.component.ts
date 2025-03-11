@@ -7,5 +7,5 @@ import { LayoutComponent } from './layout/layout.component';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  title = 'Product list';
+  title = 'Premium coffee';
 }
