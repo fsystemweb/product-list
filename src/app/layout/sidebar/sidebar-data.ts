@@ -10,12 +10,23 @@ export const navItems: NavItem[] = [
     route: '/dashboard',
   },
   {
-    displayName: 'Analytical',
-    iconName: 'aperture',
-    route: 'https://modernize-angular-main.netlify.app/dashboards/dashboard1',
+    displayName: 'Categories',
+    iconName: 'layout-grid-add',
+    children: [
+      {
+        displayName: 'Arabica',
+        iconName: 'coffee',
+        route: '/products/arabica',
+      },
+    ],
+  },
+  {
+    displayName: 'About me',
+    iconName: 'world',
+    route: 'https://fedc.online',
     chip: true,
     external: true,
     chipClass: 'bg-secondary text-white',
-    chipContent: 'PRO',
+    chipContent: 'external',
   },
 ];

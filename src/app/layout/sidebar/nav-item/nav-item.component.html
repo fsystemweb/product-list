@@ -27,7 +27,15 @@
             }}</span>
           </span>
         }
-        <mat-icon [@indicatorRotate]="expanded ? 'expanded' : 'collapsed'"> expand_more </mat-icon>
+        @if (!expanded) {
+          <mat-icon>
+            <i-tabler name="layout-sidebar-left-expand" class="icon-18 d-flex"></i-tabler>
+          </mat-icon>
+        } @else {
+          <mat-icon>
+            <i-tabler name="layout-navbar-expand" class="icon-18 d-flex"></i-tabler>
+          </mat-icon>
+        }
       </span>
     }
   </a>
