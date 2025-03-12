@@ -3,7 +3,9 @@ import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo } from 'apollo-angular';
 import { gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Category } from '../models/category';
+import { ApolloArray } from '../models/arrays-apollo';
 
 @Injectable({
   providedIn: 'root',
@@ -11,28 +13,35 @@ import { Category } from '../models/category';
 export class CategoryService {
   private apollo: Apollo = inject(Apollo);
 
-  getCategories(): Observable<ApolloQueryResult<{ getCategoryList: { items: Category[] } }>> {
-    return this.apollo.query({
-      query: gql`
-        {
-          getCategoryList {
-            items {
-              _id
-              name
-              products {
+  getCategories(): Observable<ApolloQueryResult<ApolloArray<Category>>> {
+    return this.apollo
+      .query<{ getCategoryList: ApolloArray<Category> }>({
+        query: gql`
+          {
+            getCategoryList {
+              items {
                 _id
-                description
                 name
-                price
+                products {
+                  _id
+                  description
+                  name
+                  price
+                  slug
+                }
                 slug
               }
-              slug
+              total
             }
-            total
           }
-        }
-      `,
-    });
+        `,
+      })
+      .pipe(
+        map(result => ({
+          ...result,
+          data: result.data.getCategoryList,
+        }))
+      );
   }
 
   getCategory(slug: string): Observable<ApolloQueryResult<Category>> {

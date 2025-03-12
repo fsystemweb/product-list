@@ -10,6 +10,6 @@ import { MaterialModule } from '../../../../vendor/material.module';
 })
 export class DashboardCardComponent {
   title = input.required<string>();
-  number = input.required<string>();
+  number = input.required<number>();
   image = input.required<string>();
 }

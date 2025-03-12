@@ -2,8 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo } from 'apollo-angular';
 import { gql } from 'apollo-angular';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Product } from '../models/product';
+import { ApolloArray } from '../models/arrays-apollo';
 
 @Injectable({
   providedIn: 'root',
@@ -11,22 +12,77 @@ import { Product } from '../models/product';
 export class ProductService {
   private apollo: Apollo = inject(Apollo);
 
-  getProduct(slug: string): Observable<ApolloQueryResult<Product>> {
-    return this.apollo.query({
-      query: gql`
-        query GetProduct($slug: String!) {
-          product(slug: $slug) {
-            slug
+  getProducts(): Observable<ApolloQueryResult<ApolloArray<Product>>> {
+    return this.apollo
+      .query<{ getProductList: ApolloArray<Product> }>({
+        query: gql`
+          {
+            getProductList {
+              items {
+                _id
+                category {
+                  _id
+                  name
+                  slug
+                }
+                description
+                image {
+                  _id
+                  caption
+                  credit
+                  description
+                  filename
+                  mimeType
+                  path
+                  sourceUrl
+                  title
+                  uploadStatus
+                }
+                name
+                price
+                slug
+              }
+              total
+            }
+          }
+        `,
+      })
+      .pipe(
+        map(result => ({
+          ...result,
+          data: result.data.getProductList,
+        }))
+      );
+  }
+
+  getProduct(id: string): Observable<ApolloQueryResult<Product>> {
+    const GET_PRODUCT_QUERY = gql`
+      query GetProduct($id: ID!) {
+        getProduct(id: $id) {
+          slug
+          name
+          description
+          image
+          price
+          category {
             name
-            image
-            description
-            price
           }
         }
-      `,
-      variables: {
-        slug: slug,
-      },
-    });
+      }
+    `;
+
+    return this.apollo
+      .query<{ getProduct: Product }>({
+        query: GET_PRODUCT_QUERY,
+        variables: { id },
+      })
+      .pipe(
+        map(
+          (result): ApolloQueryResult<Product> => ({
+            ...result,
+            data: result.data.getProduct,
+          })
+        )
+      );
   }
 }
