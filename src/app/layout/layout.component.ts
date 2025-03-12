@@ -1,6 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, OnInit, ViewChild, ViewEncapsulation, OnDestroy, inject } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, ViewChild, ViewEncapsulation, inject, DestroyRef } from '@angular/core';
 import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 
 import { filter } from 'rxjs/operators';
@@ -16,6 +15,7 @@ import { AppNavItemComponent } from './sidebar/nav-item/nav-item.component';
 import { navItems } from './sidebar/sidebar-data';
 import { MaterialModule } from '../vendor/material.module';
 import { CoreService } from '../services/core.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
@@ -37,10 +37,11 @@ const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
   styleUrls: [],
   encapsulation: ViewEncapsulation.None,
 })
-export class LayoutComponent implements OnInit, OnDestroy {
+export class LayoutComponent {
   private settings: CoreService = inject(CoreService);
   private router: Router = inject(Router);
   private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
+  private destroyRef = inject(DestroyRef);
 
   navItems = navItems;
 
@@ -51,7 +52,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
   content: MatSidenavContent | null = null;
   //get options from service
   options = this.settings.getOptions();
-  private layoutChangesSubscription = Subscription.EMPTY;
   private isMobileScreen = false;
   private isContentWidthFixed = true;
   private isCollapsedWidthFixed = false;
@@ -61,8 +61,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   constructor() {
-    this.layoutChangesSubscription = this.breakpointObserver
+    this.breakpointObserver
       .observe([MOBILE_VIEW, TABLET_VIEW])
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(state => {
         // SidenavOpened must be reset true when layout changes
         this.options.sidenavOpened = true;
@@ -78,14 +79,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.content.scrollTo({ top: 0 });
       }
     });
-  }
-
-  ngOnInit(): void {
-    // Initialize sidenav state
-    if (!this.sidenav) {
-      console.warn('Sidenav not initialized');
-      return;
-    }
   }
 
   toggleCollapsed(): void {
@@ -107,15 +100,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   onSidenavOpenedChange(isOpened: boolean): void {
-    if (!this.sidenav) {
-      console.warn('Cannot handle sidenav change: Sidenav not initialized');
-      return;
-    }
     this.isCollapsedWidthFixed = !this.isOver;
     this.options.sidenavOpened = isOpened;
-  }
-
-  ngOnDestroy(): void {
-    this.layoutChangesSubscription.unsubscribe();
   }
 }
