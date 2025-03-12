@@ -16,6 +16,19 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 - lint-staged: ^15.4.3
 - prettier: ^3.5.3
 
+## Template
+
+This project is based on the Modernize Angular Free template, which can be found here:
+Modernize Angular Free Template -> link: https://github.com/adminmart/modernize-angular-free/tree/main
+
+Modifications Made:
+
+- Removed Unnecessary Features: Streamlined the template by removing features that were not required for this project.
+- Customized Styling: Adapted the color scheme and styles to align with the project's design requirements.
+- Added Custom Components: Developed and integrated custom components to enhance functionality and personalize the project further.
+
+This tailored approach ensures the project meets its specific needs while maintaining a clean and efficient codebase.
+
 ## Development server
 
 ```bash
@@ -32,4 +45,6 @@ npm run test
 
 ```bash
 npm run format
+
+
 ```
