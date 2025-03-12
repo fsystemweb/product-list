@@ -6,6 +6,4 @@ import { LayoutComponent } from './layout/layout.component';
   imports: [LayoutComponent],
   templateUrl: './app.component.html',
 })
-export class AppComponent {
-  title = 'Premium coffee';
-}
+export class AppComponent {}

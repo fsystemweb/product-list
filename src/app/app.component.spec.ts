@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterOutlet } from '@angular/router';
 import { AppComponent } from './app.component';
+import { TablerIconsModule } from 'angular-tabler-icons';
+import * as TablerIcons from 'angular-tabler-icons/icons';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -8,7 +10,7 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterOutlet, AppComponent],
+      imports: [RouterOutlet, AppComponent, TablerIconsModule.pick(TablerIcons)],
       declarations: [],
     }).compileComponents();
 
@@ -19,15 +21,5 @@ describe('AppComponent', () => {
 
   it('should create the app', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should have title Product list', () => {
-    expect(component.title).toEqual('Product list');
-  });
-
-  it('should render title', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    const titleElement = compiled.querySelector('h1');
-    expect(titleElement?.textContent).toContain('Product list');
   });
 });
