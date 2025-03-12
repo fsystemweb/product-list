@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  graphqlServerUrl: 'https://api.takeshape.io/project/',
-  graphqlServerId: '91b1da51-fac1-4ebc-a730-bb32ae5fef07',
-  graphqlServerToken: 'pat_8a95a96b201a40eabc322f7f2fdeb636',
+  graphqlServerUrl: process.env['GRAPHQL_SERVER_URL'],
+  graphqlServerId: process.env['GRAPHQL_SERVER_ID'],
+  graphqlServerToken: process.env['GRAPHQL_SERVER_TOKEN'],
 };
