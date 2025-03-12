@@ -51,4 +51,11 @@ export class ProductsTableComponent {
   onRowClick(row: productsData): void {
     this.router.navigate(['./productView', row.slug], { relativeTo: this.route });
   }
+
+  getImage(row: productsData): string {
+    const productsImagesPath = '/assets/images/products/';
+    return productsImagesPath + 'coffee-1.jpg';
+
+    //return productsImagesPath + row.image;
+  }
 }
