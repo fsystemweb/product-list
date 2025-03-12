@@ -15,6 +15,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 //Import all material modules
 import { MaterialModule } from './vendor/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { provideApollo } from 'apollo-angular';
+import { apolloConfig } from './appollo.config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,5 +39,6 @@ export const appConfig: ApplicationConfig = {
       TablerIconsModule.pick(TablerIcons),
       NgScrollbarModule
     ),
+    provideApollo(apolloConfig),
   ],
 };

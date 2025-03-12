@@ -1,36 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject } from '@angular/core';
 import { MaterialModule } from '../../../../vendor/material.module';
 import { Router } from '@angular/router';
-
-// table 1
-interface productsData {
-  id: number;
-  slug: string;
-  name: string;
-  products: number;
-}
-
-const PRODUCT_DATA: productsData[] = [
-  {
-    id: 1,
-    slug: 'robusta',
-    name: 'Robusta',
-    products: 2,
-  },
-  {
-    id: 2,
-    slug: 'arabica',
-    name: 'Arabica',
-    products: 3,
-  },
-  {
-    id: 3,
-    slug: 'excelsa',
-    name: 'Excelsa',
-    products: 4,
-  },
-];
+import { CategoryService } from '../../../../services/category.service';
+import { ErrorHandlerService } from '../../../../services/error-handler.service';
+import { Category } from '../../../../models/category';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-categories-table',
@@ -39,10 +14,40 @@ const PRODUCT_DATA: productsData[] = [
 })
 export class CategoriesTableComponent {
   private router: Router = inject(Router);
-  displayedColumns: string[] = ['name', 'products'];
-  dataSource1 = PRODUCT_DATA;
+  private categoryService = inject(CategoryService);
+  private errorHandlerService = inject(ErrorHandlerService);
+  private ref = inject(ChangeDetectorRef);
+  private destroyRef = inject(DestroyRef);
 
-  onRowClick(row: productsData): void {
+  displayedColumns: string[] = ['name', 'products'];
+  dataSource: Category[] = [];
+
+  loading = false;
+
+  constructor() {
+    this.fetchCategory();
+  }
+
+  onRowClick(row: Category): void {
     this.router.navigate(['/products', row.slug]);
+  }
+
+  private fetchCategory(): void {
+    this.loading = true;
+    this.categoryService
+      .getCategories()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: ({ data }) => {
+          this.dataSource = data.getCategoryList.items;
+        },
+        error: error => {
+          this.errorHandlerService.handleError(error);
+        },
+        complete: () => {
+          this.loading = false;
+          this.ref.markForCheck();
+        },
+      });
   }
 }
