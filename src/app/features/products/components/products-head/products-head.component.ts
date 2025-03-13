@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MaterialModule } from '../../../../vendor/material.module';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CategoryStateService } from '../../../../state/category-state.service';
+import { catchError, map, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-products-head',
@@ -13,16 +14,20 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class ProductsHeadComponent {
   private route: ActivatedRoute = inject(ActivatedRoute);
-  private destroyRef = inject(DestroyRef);
-  name: string = '';
+  private categoryStateService = inject(CategoryStateService);
 
-  constructor() {
-    this.setName();
-  }
-
-  setName(): void {
-    this.route.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
-      this.name = params['slug'] || '';
-    });
-  }
+  name$ = this.route.params.pipe(
+    map(params => params['slug'] || ''),
+    switchMap(slug =>
+      this.categoryStateService.getCategories().pipe(
+        map(categories => {
+          const category = categories.items.find(c => c.slug === slug);
+          return category?.name || '';
+        })
+      )
+    ),
+    catchError(error => {
+      return of('');
+    })
+  );
 }

@@ -44,7 +44,7 @@ export class CategoryService {
       );
   }
 
-  getCategory(slug: string): Observable<ApolloQueryResult<Category>> {
+  getCategory(id: string): Observable<ApolloQueryResult<Category>> {
     return this.apollo.query({
       query: gql`
         query ($_id: ID!) {
@@ -64,7 +64,7 @@ export class CategoryService {
         }
       `,
       variables: {
-        _id: slug,
+        _id: id,
       },
     });
   }

@@ -21,20 +21,19 @@ export class ProductsTableComponent {
   }
 
   onRowClick(row: Product): void {
-    this.router.navigate(['./productView', row.slug], { relativeTo: this.route });
+    this.router.navigate(['./productView', row._id], { relativeTo: this.route });
   }
 
   getImage(row: Product): string {
     const productsImagesPath = '/assets/images/products/';
     return productsImagesPath + 'coffee-1.jpg';
 
+    //TODO: Implement image retrieval logic
     //return productsImagesPath + row.image;
   }
 
   private getResolvedData(): void {
     const resolvedData = this.route.snapshot.data['resolvedData'];
-    console.log(resolvedData);
-
-    this.dataSource = resolvedData.dada;
+    this.dataSource = resolvedData.data.getCategory.products;
   }
 }

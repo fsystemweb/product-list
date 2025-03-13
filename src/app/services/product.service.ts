@@ -46,8 +46,8 @@ export class ProductService {
 
   getProduct(id: string): Observable<ApolloQueryResult<Product>> {
     const GET_PRODUCT_QUERY = gql`
-      query GetProduct($id: ID!) {
-        getProduct(id: $id) {
+      query GetProduct($_id: ID!) {
+        getProduct(_id: $_id) {
           slug
           name
           description
@@ -63,7 +63,7 @@ export class ProductService {
     return this.apollo
       .query<{ getProduct: Product }>({
         query: GET_PRODUCT_QUERY,
-        variables: { id },
+        variables: { _id: id },
       })
       .pipe(
         map(
