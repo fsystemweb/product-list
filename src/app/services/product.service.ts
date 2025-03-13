@@ -26,18 +26,7 @@ export class ProductService {
                   slug
                 }
                 description
-                image {
-                  _id
-                  caption
-                  credit
-                  description
-                  filename
-                  mimeType
-                  path
-                  sourceUrl
-                  title
-                  uploadStatus
-                }
+                image
                 name
                 price
                 slug

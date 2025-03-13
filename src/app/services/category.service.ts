@@ -47,22 +47,24 @@ export class CategoryService {
   getCategory(slug: string): Observable<ApolloQueryResult<Category>> {
     return this.apollo.query({
       query: gql`
-        query GetCategory($slug: String!) {
-          category(slug: $slug) {
-            slug
+        query ($_id: ID!) {
+          getCategory(_id: $_id) {
+            _id
             name
             products {
-              slug
-              name
-              image
+              _id
               description
+              image
+              name
               price
+              slug
             }
+            slug
           }
         }
       `,
       variables: {
-        slug: slug,
+        _id: slug,
       },
     });
   }
