@@ -1,4 +1,10 @@
-import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideZoneChangeDetection,
+  importProvidersFrom,
+  provideAppInitializer,
+  inject,
+} from '@angular/core';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { routes } from './app.routes';
 import { provideRouter, withComponentInputBinding, withInMemoryScrolling } from '@angular/router';
@@ -17,6 +23,7 @@ import { MaterialModule } from './vendor/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideApollo } from 'apollo-angular';
 import { apolloConfig } from './appollo.config';
+import { CategoryStateService } from './state/category-state.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -40,5 +47,8 @@ export const appConfig: ApplicationConfig = {
       NgScrollbarModule
     ),
     provideApollo(apolloConfig),
+    provideAppInitializer(() => {
+      inject(CategoryStateService).loadCategories();
+    }),
   ],
 };
