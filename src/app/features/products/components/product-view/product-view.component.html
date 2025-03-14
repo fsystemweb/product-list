@@ -10,7 +10,7 @@
               {{ product.description }}
             </mat-card-subtitle>
             <div class="text-center m-t-24">
-              <img src="/assets/images/products/coffee-1.jpg" width="100%" />
+              <img class="rounded" [src]="product.image | productImage" width="100%" />
             </div> </mat-card-content
         ></mat-card>
       </div>

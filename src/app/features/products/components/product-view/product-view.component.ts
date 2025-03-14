@@ -4,10 +4,11 @@ import { MaterialModule } from '../../../../vendor/material.module';
 import { ProductsHeadComponent } from '../products-head/products-head.component';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../../../models/product';
+import { ProductImagePipe } from '../../../../pipe/product-image.pipe';
 
 @Component({
   selector: 'app-product-view',
-  imports: [CommonModule, MaterialModule, ProductsHeadComponent],
+  imports: [CommonModule, MaterialModule, ProductsHeadComponent, ProductImagePipe],
   templateUrl: './product-view.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
