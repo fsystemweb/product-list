@@ -30,6 +30,7 @@
     "apollo-angular": "^10.0.3",
     "graphql": "^16.10.0",
     "ngx-scrollbar": "^18.0.0",
+    "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
     "sass": "^1.85.1",
     "tslib": "^2.3.0",

@@ -27,7 +27,6 @@ export class ProductsTableResolver implements Resolve<ApolloQueryResult<Category
         if (!data || !data.items) return of(null);
         const categoryId = data.items.find(category => category.slug === slug)?._id;
         return categoryId ? this.categoryService.getCategory(categoryId) : of(null);
-        // TODO: Implement error handling
       })
     );
   }

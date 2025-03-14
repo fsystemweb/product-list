@@ -1,16 +1,21 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ErrorHandlerService {
-  handleError(error: any): string {
+  private toastrService = inject(ToastrService);
+
+  handleError(error: any): void {
     if (error.graphQLErrors) {
-      return error.graphQLErrors.map((err: any) => err.message).join(', ');
+      this.toastrService.error(
+        `GraphQL error: ${error.graphQLErrors.map((err: any) => err.message).join(', ')}`
+      );
     } else if (error.networkError) {
-      return `Network error: ${error.networkError.message}`;
+      this.toastrService.error(`Network error: ${error.networkError.message}`);
     } else {
-      return 'An unknown error occurred';
+      this.toastrService.error(`Unknown error: ${error.message}`);
     }
   }
 }

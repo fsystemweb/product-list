@@ -18,6 +18,9 @@ import * as TablerIcons from 'angular-tabler-icons/icons';
 // perfect scrollbar
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
+// toastr
+import { provideToastr } from 'ngx-toastr';
+
 //Import all material modules
 import { MaterialModule } from './vendor/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -50,5 +53,6 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       inject(CategoryStateService).loadCategories();
     }),
+    provideToastr(),
   ],
 };

@@ -31,7 +31,5 @@ export class ProductViewComponent {
   private getResolvedData(): void {
     const resolvedData = this.route.snapshot.data['resolvedData'];
     this.product = resolvedData.data;
-
-    console.log(this.product);
   }
 }

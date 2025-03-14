@@ -20,7 +20,6 @@ export class CategoryStateService {
   }
 
   loadCategories(): void {
-    // TODO: Handle errors
     this.categoryService
       .getCategories()
       .pipe(takeUntilDestroyed(this.destroyRef))
