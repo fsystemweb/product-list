@@ -15,6 +15,18 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 - jest: ^29.7.0
 - lint-staged: ^15.4.3
 - prettier: ^3.5.3
+- angular material: ^19.2.2
+- graphql: ^16.10.0
+- apollo-angular: ^10.0.3
+- ngx-toastr: ^19.0.0
+
+## Api
+
+This application is ready to be connected to a graphql server.
+For our demo live we use: https://www.takeshape.io/
+Just remember to populate the environment.ts file with your graphql server credentials.
+
+We use cache first because we don't really need real-time acurrancy.
 
 ## Template
 
@@ -28,6 +40,10 @@ Modifications Made:
 - Added Custom Components: Developed and integrated custom components to enhance functionality and personalize the project further.
 
 This tailored approach ensures the project meets its specific needs while maintaining a clean and efficient codebase.
+
+## Icons
+
+This project uses these icons: https://tabler.io/icons
 
 ## Development server
 
@@ -45,6 +61,4 @@ npm run test
 
 ```bash
 npm run format
-
-
 ```

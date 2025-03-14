@@ -5,12 +5,12 @@
       <div class="col-sm-6">
         <mat-card class="mat-mdc-card mdc-card cardWithShadow">
           <mat-card-content class="mat-mdc-card-content p-y-24">
-            <mat-card-title class="mat-mdc-card-title">Name</mat-card-title>
+            <mat-card-title class="mat-mdc-card-title">{{ product.name }}</mat-card-title>
             <mat-card-subtitle class="mat-mdc-card-subtitle f-s-14">
-              descriptoin
+              {{ product.description }}
             </mat-card-subtitle>
             <div class="text-center m-t-24">
-              <img src="/assets/images/products/coffee-1.jpg" width="450" />
+              <img src="/assets/images/products/coffee-1.jpg" width="100%" />
             </div> </mat-card-content
         ></mat-card>
       </div>
@@ -18,7 +18,9 @@
         <mat-card class="mat-mdc-card mdc-card cardWithShadow">
           <mat-card-content class="mat-mdc-card-content p-y-24">
             <mat-label class="f-s-14 f-w-600 m-b-8 d-block"> Price </mat-label>
+            {{ product.price }}
             <mat-label class="f-s-14 f-w-600 m-b-8 d-block"> Category </mat-label>
+            {{ product.category?.name || '' }}
           </mat-card-content>
         </mat-card>
       </div>

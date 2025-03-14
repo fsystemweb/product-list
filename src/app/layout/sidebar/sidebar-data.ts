@@ -9,13 +9,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Categories',
     iconName: 'mug',
-    children: [
-      {
-        displayName: 'Arabica',
-        iconName: 'coffee',
-        route: '/products/arabica',
-      },
-    ],
+    children: [],
   },
   {
     displayName: 'About me',

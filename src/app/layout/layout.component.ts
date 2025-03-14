@@ -16,6 +16,7 @@ import { navItems } from './sidebar/sidebar-data';
 import { MaterialModule } from '../vendor/material.module';
 import { CoreService } from '../services/core.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CategoryStateService } from '../state/category-state.service';
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
@@ -42,6 +43,7 @@ export class LayoutComponent {
   private router: Router = inject(Router);
   private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
   private destroyRef = inject(DestroyRef);
+  private categoryStateService = inject(CategoryStateService);
 
   navItems = navItems;
 
@@ -50,7 +52,6 @@ export class LayoutComponent {
   resView = false;
   @ViewChild('content', { static: true })
   content: MatSidenavContent | null = null;
-  //get options from service
   options = this.settings.getOptions();
   private isMobileScreen = false;
   private isContentWidthFixed = true;
@@ -74,11 +75,18 @@ export class LayoutComponent {
       });
 
     // This is for scroll to top
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      if (this.content) {
-        this.content.scrollTo({ top: 0 });
-      }
-    });
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => {
+        if (this.content) {
+          this.content.scrollTo({ top: 0 });
+        }
+      });
+
+    this.loadCategoriesOnSidenav();
   }
 
   toggleCollapsed(): void {
@@ -102,5 +110,28 @@ export class LayoutComponent {
   onSidenavOpenedChange(isOpened: boolean): void {
     this.isCollapsedWidthFixed = !this.isOver;
     this.options.sidenavOpened = isOpened;
+  }
+
+  private loadCategoriesOnSidenav(): void {
+    this.categoryStateService
+      .getCategories()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => {
+        if (!data) return;
+
+        const newChildren = data.items.map(category => ({
+          displayName: category.name,
+          iconName: 'coffee',
+          route: `/products/${category.slug}`,
+        }));
+
+        const categories = this.navItems.find(item => item.displayName === 'Categories');
+
+        if (categories) {
+          categories.children = categories.children
+            ? [...categories.children, ...newChildren]
+            : [...newChildren];
+        }
+      });
   }
 }

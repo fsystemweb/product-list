@@ -1,36 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { MaterialModule } from '../../../../vendor/material.module';
 import { Router } from '@angular/router';
-
-// table 1
-interface productsData {
-  id: number;
-  slug: string;
-  name: string;
-  products: number;
-}
-
-const PRODUCT_DATA: productsData[] = [
-  {
-    id: 1,
-    slug: 'robusta',
-    name: 'Robusta',
-    products: 2,
-  },
-  {
-    id: 2,
-    slug: 'arabica',
-    name: 'Arabica',
-    products: 3,
-  },
-  {
-    id: 3,
-    slug: 'excelsa',
-    name: 'Excelsa',
-    products: 4,
-  },
-];
+import { Category } from '../../../../models/category';
+import { CategoryStateService } from '../../../../state/category-state.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-categories-table',
@@ -39,10 +13,29 @@ const PRODUCT_DATA: productsData[] = [
 })
 export class CategoriesTableComponent {
   private router: Router = inject(Router);
-  displayedColumns: string[] = ['name', 'products'];
-  dataSource1 = PRODUCT_DATA;
+  private categoryStateService = inject(CategoryStateService);
+  private destroyRef = inject(DestroyRef);
 
-  onRowClick(row: productsData): void {
+  displayedColumns: string[] = ['name', 'products'];
+  dataSource: Category[] = [];
+
+  loading = false;
+
+  constructor() {
+    this.getCategory();
+  }
+
+  onRowClick(row: Category): void {
     this.router.navigate(['/products', row.slug]);
+  }
+
+  private getCategory(): void {
+    this.categoryStateService
+      .getCategories()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => {
+        if (!data) return;
+        this.dataSource = data.items;
+      });
   }
 }
