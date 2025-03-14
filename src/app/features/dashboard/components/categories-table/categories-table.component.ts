@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { MaterialModule } from '../../../../vendor/material.module';
 import { Router } from '@angular/router';
 import { Category } from '../../../../models/category';
@@ -10,6 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   selector: 'app-categories-table',
   imports: [CommonModule, MaterialModule],
   templateUrl: './categories-table.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoriesTableComponent {
   private router: Router = inject(Router);
