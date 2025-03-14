@@ -23,7 +23,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 This application is ready to be connected to a graphql server.
 For our demo live we use: https://www.takeshape.io/
-Just remember to populate the .env.local file with your graphql server credentials.
+Just remember to populate the environment.ts file with your graphql server credentials.
 
 We use cache first because we don't really need real-time acurrancy.
 
