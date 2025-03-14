@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MaterialModule } from '../../../../vendor/material.module';
 import { ProductsHeadComponent } from '../products-head/products-head.component';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { Product } from '../../../../models/product';
   selector: 'app-products-table',
   imports: [CommonModule, MaterialModule, ProductsHeadComponent],
   templateUrl: './products-table.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsTableComponent {
   private router: Router = inject(Router);

@@ -17,6 +17,7 @@ import { MaterialModule } from '../vendor/material.module';
 import { CoreService } from '../services/core.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CategoryStateService } from '../state/category-state.service';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
@@ -32,6 +33,7 @@ const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
     NgScrollbarModule,
     TablerIconsModule,
     HeaderComponent,
+    SpinnerComponent,
   ],
   standalone: true,
   templateUrl: './layout.component.html',

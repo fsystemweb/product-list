@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MaterialModule } from '../../../../vendor/material.module';
 import { CategoryStateService } from '../../../../state/category-state.service';
@@ -11,6 +11,7 @@ import { catchError, map, of, switchMap } from 'rxjs';
   templateUrl: './products-head.component.html',
   styleUrls: ['./products-head.component.scss'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsHeadComponent {
   private route: ActivatedRoute = inject(ActivatedRoute);
