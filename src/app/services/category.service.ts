@@ -13,28 +13,48 @@ import { ApolloArray } from '../models/arrays-apollo';
 export class CategoryService {
   private apollo: Apollo = inject(Apollo);
 
+  private readonly GET_CATEGORIES = gql`
+    query GetCategories {
+      getCategoryList {
+        items {
+          _id
+          name
+          products {
+            _id
+            description
+            name
+            price
+            slug
+          }
+          slug
+        }
+        total
+      }
+    }
+  `;
+
+  private readonly GET_CATEGORY = gql`
+    query GetCategory($_id: ID!) {
+      getCategory(_id: $_id) {
+        _id
+        name
+        products {
+          _id
+          description
+          image
+          name
+          price
+          slug
+        }
+        slug
+      }
+    }
+  `;
+
   getCategories(): Observable<ApolloQueryResult<ApolloArray<Category>>> {
     return this.apollo
       .query<{ getCategoryList: ApolloArray<Category> }>({
-        query: gql`
-          {
-            getCategoryList {
-              items {
-                _id
-                name
-                products {
-                  _id
-                  description
-                  name
-                  price
-                  slug
-                }
-                slug
-              }
-              total
-            }
-          }
-        `,
+        query: this.GET_CATEGORIES,
       })
       .pipe(
         map(result => ({
@@ -45,27 +65,18 @@ export class CategoryService {
   }
 
   getCategory(id: string): Observable<ApolloQueryResult<Category>> {
-    return this.apollo.query({
-      query: gql`
-        query ($_id: ID!) {
-          getCategory(_id: $_id) {
-            _id
-            name
-            products {
-              _id
-              description
-              image
-              name
-              price
-              slug
-            }
-            slug
-          }
-        }
-      `,
-      variables: {
-        _id: id,
-      },
-    });
+    return this.apollo
+      .query<{ getCategory: Category }>({
+        query: this.GET_CATEGORY,
+        variables: {
+          _id: id,
+        },
+      })
+      .pipe(
+        map(result => ({
+          ...result,
+          data: result.data.getCategory,
+        }))
+      );
   }
 }

@@ -26,14 +26,11 @@ export class ProductsTableComponent {
 
   getImage(row: Product): string {
     const productsImagesPath = '/assets/images/products/';
-    return productsImagesPath + 'coffee-1.jpg';
-
-    //TODO: Implement image retrieval logic
-    //return productsImagesPath + row.image;
+    return productsImagesPath + row.image;
   }
 
   private getResolvedData(): void {
     const resolvedData = this.route.snapshot.data['resolvedData'];
-    this.dataSource = resolvedData.data.getCategory.products;
+    this.dataSource = resolvedData.data.products;
   }
 }
