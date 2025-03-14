@@ -18,6 +18,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 - angular material: ^19.2.2
 - graphql: ^16.10.0
 - apollo-angular: ^10.0.3
+- ngx-toastr: ^19.0.0
 
 ## Api
 
