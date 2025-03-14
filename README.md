@@ -41,6 +41,10 @@ Modifications Made:
 
 This tailored approach ensures the project meets its specific needs while maintaining a clean and efficient codebase.
 
+## Icons
+
+This project uses these icons: https://tabler.io/icons
+
 ## Development server
 
 ```bash
