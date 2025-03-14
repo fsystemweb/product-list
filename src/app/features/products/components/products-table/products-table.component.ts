@@ -4,10 +4,11 @@ import { MaterialModule } from '../../../../vendor/material.module';
 import { ProductsHeadComponent } from '../products-head/products-head.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from '../../../../models/product';
+import { ProductImagePipe } from '../../../../pipe/product-image.pipe';
 
 @Component({
   selector: 'app-products-table',
-  imports: [CommonModule, MaterialModule, ProductsHeadComponent],
+  imports: [CommonModule, MaterialModule, ProductsHeadComponent, ProductImagePipe],
   templateUrl: './products-table.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -23,11 +24,6 @@ export class ProductsTableComponent {
 
   onRowClick(row: Product): void {
     this.router.navigate(['./productView', row._id], { relativeTo: this.route });
-  }
-
-  getImage(row: Product): string {
-    const productsImagesPath = '/assets/images/products/';
-    return productsImagesPath + row.image;
   }
 
   private getResolvedData(): void {
