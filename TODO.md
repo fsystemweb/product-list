@@ -1,4 +1,3 @@
-- Fix Category name for product view
 - Slugify product view route
 - Countdown (using RxJS) to midnight to let the user know if they order it today, it will be delivered
   tomorrow
