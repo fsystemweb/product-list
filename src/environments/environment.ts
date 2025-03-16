@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  graphqlServerUrl: '',
-  graphqlServerId: '',
-  graphqlServerToken: '',
+  graphqlServerUrl: 'insert-server-url',
+  graphqlServerId: 'insert-server-id',
+  graphqlServerToken: 'insert-token',
 };

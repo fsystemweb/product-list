@@ -10,9 +10,10 @@ const routes: Routes = [
     path: '',
     component: ProductsPageComponent,
     resolve: { resolvedData: ProductsTableResolver },
+    runGuardsAndResolvers: 'always',
   },
   {
-    path: 'productView/:id',
+    path: 'product-view/:slug',
     component: ProductViewComponent,
     resolve: { resolvedData: ProductsViewResolver },
   },

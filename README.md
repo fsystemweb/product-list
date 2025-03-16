@@ -7,6 +7,11 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 ### Main Dependencies
 
 - Angular 19.2
+- angular material: ^19.2.2
+- graphql: ^16.10.0
+- apollo-angular: ^10.0.3
+- angular-tabler-icons: "^3.26.0",
+- ngx-toastr: ^19.0.0
 
 ### Development Dependencies
 
@@ -15,10 +20,6 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 - jest: ^29.7.0
 - lint-staged: ^15.4.3
 - prettier: ^3.5.3
-- angular material: ^19.2.2
-- graphql: ^16.10.0
-- apollo-angular: ^10.0.3
-- ngx-toastr: ^19.0.0
 
 ## Api
 

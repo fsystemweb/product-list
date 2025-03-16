@@ -1,11 +1,11 @@
-<app-products-head></app-products-head>
+<app-products-head [title]="product.name" />
 <mat-card class="mat-mdc-card mdc-card cardWithShadow">
   <mat-card-content class="mat-mdc-card-content p-y-24">
     <div class="row">
       <div class="col-sm-6">
         <mat-card class="mat-mdc-card mdc-card cardWithShadow">
           <mat-card-content class="mat-mdc-card-content p-y-24">
-            <mat-card-title class="mat-mdc-card-title">{{ product.name }}</mat-card-title>
+            <mat-card-title class="mat-mdc-card-title">Description</mat-card-title>
             <mat-card-subtitle class="mat-mdc-card-subtitle f-s-14">
               {{ product.description }}
             </mat-card-subtitle>
@@ -20,7 +20,9 @@
             <mat-label class="f-s-14 f-w-600 m-b-8 d-block"> Price </mat-label>
             {{ product.price }}
             <mat-label class="f-s-14 f-w-600 m-b-8 d-block"> Category </mat-label>
-            {{ product.category?.name || '' }}
+            {{ product.category.name || '' }}
+            <mat-label class="f-s-14 f-w-600 m-b-8 d-block"> Delivery </mat-label>
+            <app-product-countdown />
           </mat-card-content>
         </mat-card>
       </div>
