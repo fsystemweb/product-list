@@ -52,6 +52,26 @@ export class ProductService {
     }
   `;
 
+  private readonly GET_PRODUCT_BY_SLUG = gql`
+    query ($where: TSWhereProductInput!) {
+      getProductList(where: $where) {
+        items {
+          _id
+          category {
+            _id
+            name
+            slug
+          }
+          description
+          image
+          name
+          price
+          slug
+        }
+      }
+    }
+  `;
+
   getProducts(): Observable<ApolloQueryResult<ApolloArray<Product>>> {
     return this.apollo
       .query<{ getProductList: ApolloArray<Product> }>({
@@ -75,6 +95,26 @@ export class ProductService {
         map(result => ({
           ...result,
           data: result.data.getProduct,
+        }))
+      );
+  }
+
+  getProductBySlug(slug: string): Observable<ApolloQueryResult<Product>> {
+    return this.apollo
+      .query<{ getProductList: ApolloArray<Product> }>({
+        query: this.GET_PRODUCT_BY_SLUG,
+        variables: {
+          where: {
+            slug: {
+              eq: slug,
+            },
+          },
+        },
+      })
+      .pipe(
+        map(result => ({
+          ...result,
+          data: result.data.getProductList.items[0],
         }))
       );
   }

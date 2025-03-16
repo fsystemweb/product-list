@@ -12,7 +12,7 @@ const routes: Routes = [
     resolve: { resolvedData: ProductsTableResolver },
   },
   {
-    path: 'productView/:id',
+    path: 'product-view/:slug',
     component: ProductViewComponent,
     resolve: { resolvedData: ProductsViewResolver },
   },

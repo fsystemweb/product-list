@@ -18,8 +18,10 @@ export class ProductsViewResolver implements Resolve<ApolloQueryResult<Product> 
     state: RouterStateSnapshot
   ): Observable<ApolloQueryResult<Product> | null> {
     this.loadingService.show();
-    const id = route.paramMap.get('id') || '';
+    const slug = route.paramMap.get('slug') || '';
 
-    return this.productService.getProduct(id).pipe(finalize(() => this.loadingService.hide()));
+    return this.productService
+      .getProductBySlug(slug)
+      .pipe(finalize(() => this.loadingService.hide()));
   }
 }

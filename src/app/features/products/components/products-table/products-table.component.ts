@@ -23,7 +23,7 @@ export class ProductsTableComponent {
   }
 
   onRowClick(row: Product): void {
-    this.router.navigate(['./productView', row._id], { relativeTo: this.route });
+    this.router.navigate(['./product-view', row.slug], { relativeTo: this.route });
   }
 
   private getResolvedData(): void {
