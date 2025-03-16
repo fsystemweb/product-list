@@ -10,6 +10,7 @@ const routes: Routes = [
     path: '',
     component: ProductsPageComponent,
     resolve: { resolvedData: ProductsTableResolver },
+    runGuardsAndResolvers: 'always',
   },
   {
     path: 'product-view/:slug',
