@@ -29,13 +29,15 @@ export class ProductCountdownComponent {
       )
       .subscribe({
         next: timeLeft => this.timeRemaining.set(timeLeft),
-        error: err => console.error('Countdown error:', err),
         complete: () => this.timeRemaining.set('00:00:00'),
       });
   }
 
   private getTimeUntilMidnight(): number {
-    return new Date().setHours(24, 0, 0, 0) - Date.now();
+    const currentDate = new Date();
+    const midnight = new Date(currentDate);
+    midnight.setHours(24, 0, 0, 0); // Set to midnight (00:00:00) local time
+    return midnight.getTime() - currentDate.getTime();
   }
 
   private formatTimeRemaining(milliseconds: number): string {
