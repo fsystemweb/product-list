@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MaterialModule } from '../../../../vendor/material.module';
-import { CategoryStateService } from '../../../../state/category-state.service';
-import { catchError, map, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-products-head',
@@ -14,21 +11,5 @@ import { catchError, map, of, switchMap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsHeadComponent {
-  private route: ActivatedRoute = inject(ActivatedRoute);
-  private categoryStateService = inject(CategoryStateService);
-
-  name$ = this.route.params.pipe(
-    map(params => params['slug'] || ''),
-    switchMap(slug =>
-      this.categoryStateService.getCategories().pipe(
-        map(categories => {
-          const category = categories.items.find(c => c.slug === slug);
-          return category?.name || '';
-        })
-      )
-    ),
-    catchError(error => {
-      return of('');
-    })
-  );
+  title = input<string | undefined | null>();
 }
