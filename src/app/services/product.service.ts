@@ -72,6 +72,26 @@ export class ProductService {
     }
   `;
 
+  private readonly GET_PRODUCT_RECOMMENDATIONS = gql`
+    query ($where: TSWhereProductInput!, $size: Int) {
+      getProductList(where: $where, from: 0, size: $size) {
+        items {
+          _id
+          category {
+            _id
+            name
+            slug
+          }
+          description
+          image
+          name
+          price
+          slug
+        }
+      }
+    }
+  `;
+
   getProducts(): Observable<ApolloQueryResult<ApolloArray<Product>>> {
     return this.apollo
       .query<{ getProductList: ApolloArray<Product> }>({
@@ -115,6 +135,38 @@ export class ProductService {
         map(result => ({
           ...result,
           data: result.data.getProductList.items[0],
+        }))
+      );
+  }
+
+  getProductRecommendations(
+    categoryId: string,
+    excludeId: string,
+    size: number = 3
+  ): Observable<ApolloQueryResult<ApolloArray<Product>>> {
+    return this.apollo
+      .query<{ getProductList: ApolloArray<Product> }>({
+        query: this.GET_PRODUCT_RECOMMENDATIONS,
+        variables: {
+          where: {
+            category: {
+              _id: {
+                eq: categoryId,
+              },
+            },
+            NOT: {
+              _id: {
+                eq: excludeId,
+              },
+            },
+          },
+          size: size,
+        },
+      })
+      .pipe(
+        map(result => ({
+          ...result,
+          data: result.data.getProductList,
         }))
       );
   }

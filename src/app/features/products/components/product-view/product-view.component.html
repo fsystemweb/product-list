@@ -10,7 +10,12 @@
               {{ product.description }}
             </mat-card-subtitle>
             <div class="text-center m-t-24">
-              <img class="rounded" [src]="product.image | productImage" width="100%" />
+              <img
+                mat-card-image
+                mat-card-xl-image
+                class="rounded img-fluid"
+                [src]="product.image | productImage"
+              />
             </div> </mat-card-content
         ></mat-card>
       </div>
@@ -29,3 +34,4 @@
     </div>
   </mat-card-content>
 </mat-card>
+<app-product-recommendation />

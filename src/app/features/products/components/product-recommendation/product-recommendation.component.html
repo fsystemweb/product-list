@@ -1,0 +1,22 @@
+<div class="container">
+  <h2 class="p-12">Similar products</h2>
+  <div class="row">
+    @for (product of productsRecommendation; track product._id) {
+      <div class="col-4">
+        <mat-card
+          class="card text-center d-flex flex-column align-items-center p-24 cursor-pointer"
+          (click)="onProductClick(product)"
+        >
+          <img
+            mat-card-image
+            mat-card-lg-image
+            [src]="product.image | productImage"
+            alt="{{ product.name }}"
+            class="img-fluid rounded-circle"
+          />
+          <mat-card-title>{{ product.name }}</mat-card-title>
+        </mat-card>
+      </div>
+    }
+  </div>
+</div>
