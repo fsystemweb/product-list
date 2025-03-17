@@ -1,4 +1,4 @@
-- Countdown (using RxJS) to midnight to let the user know if they order it today, it will be delivered
-  tomorrow
-- Grid of 3x other products from same category (you can query products using the slug from URL). Show
-  the image, name and link to that product page.
+- Add car shopping dropdown
+- Add e2e
+- Add FAQ chatbot
+- Add pagination for scalable product list?
