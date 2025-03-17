@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "prebuild": "node replace-env.js",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "lint": "eslint \"src/**/*.ts\" --fix",
@@ -37,14 +38,11 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "^19.0.0",
     "@angular-devkit/build-angular": "^19.2.1",
     "@angular/cli": "^19.2.1",
     "@angular/compiler-cli": "^19.2.0",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.13.10",
     "angular-eslint": "19.2.1",
-    "dotenv-webpack": "^8.1.0",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-import": "^2.31.0",
