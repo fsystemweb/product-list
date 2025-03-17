@@ -1,9 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  inject,
+} from '@angular/core';
 import { MaterialModule } from '../../../../vendor/material.module';
 import { ProductImagePipe } from '../../../../pipe/product-image.pipe';
 import { Product } from '../../../../models/product';
 import { ActivatedRoute, Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-product-recommendation',
@@ -16,36 +23,13 @@ export class ProductRecommendationComponent {
   private destroyRef = inject(DestroyRef);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
+  private ref = inject(ChangeDetectorRef);
 
-  productsRecommendation: Product[] = [
-    {
-      _id: 'product-1',
-      name: 'Product 1',
-      slug: 'product-1',
-      price: 10,
-      category: { name: 'Product 3' },
-      image: 'coffee-13.jpg',
-      description: 'This is a description for Product 1.',
-    },
-    {
-      _id: 'product-2',
-      name: 'Product 2',
-      slug: 'product-2',
-      price: 15,
-      category: { name: 'Product 3' },
-      image: 'coffee-14.jpg',
-      description: 'This is a description for Product 2.',
-    },
-    {
-      _id: 'product-3',
-      name: 'Product 3',
-      slug: 'product-3',
-      price: 20,
-      category: { name: 'Product 3' },
-      image: 'coffee-15.jpg',
-      description: 'This is a description for Product 3.',
-    },
-  ];
+  productsRecommendation: Product[] = [];
+
+  constructor() {
+    this.getResolvedData();
+  }
 
   onProductClick(product: Product): void {
     const currentUrlSegments = this.router.url.split('/');
@@ -53,5 +37,12 @@ export class ProductRecommendationComponent {
     const newUrl = currentUrlSegments.join('/');
 
     this.router.navigateByUrl(newUrl, { replaceUrl: true });
+  }
+
+  private getResolvedData(): void {
+    this.route.data.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(data => {
+      this.productsRecommendation = data['resolvedData'].recommendations || [];
+      this.ref.markForCheck();
+    });
   }
 }

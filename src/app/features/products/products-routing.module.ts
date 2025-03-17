@@ -16,6 +16,7 @@ const routes: Routes = [
     path: 'product-view/:slug',
     component: ProductViewComponent,
     resolve: { resolvedData: ProductsViewResolver },
+    runGuardsAndResolvers: 'always',
   },
 ];
 
