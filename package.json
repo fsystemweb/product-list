@@ -9,7 +9,6 @@
     "test": "jest",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "test:watch": "jest --watch",
-    "prepare": "husky",
     "format": "prettier --write \"src/**/*.{ts,html,css,scss,json}\"",
     "lint-staged": "lint-staged",
     "clean-install": "npm cache clean --force && rm -rf node_modules && npm install",
