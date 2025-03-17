@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../../../models/product';
 import { ProductImagePipe } from '../../../../pipe/product-image.pipe';
 import { ProductCountdownComponent } from '../product-countdown/product-countdown.component';
+import { ProductRecommendationComponent } from '../product-recommendation/product-recommendation.component';
 
 @Component({
   selector: 'app-product-view',
@@ -15,6 +16,7 @@ import { ProductCountdownComponent } from '../product-countdown/product-countdow
     ProductsHeadComponent,
     ProductImagePipe,
     ProductCountdownComponent,
+    ProductRecommendationComponent,
   ],
   templateUrl: './product-view.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
