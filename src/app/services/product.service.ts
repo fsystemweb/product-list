@@ -73,8 +73,8 @@ export class ProductService {
   `;
 
   private readonly GET_PRODUCT_RECOMMENDATIONS = gql`
-    query ($where: TSWhereProductInput!) {
-      getProductList(where: $where, from: 0, size: 3) {
+    query ($where: TSWhereProductInput!, $size: Int) {
+      getProductList(where: $where, from: 0, size: $size) {
         items {
           _id
           category {
@@ -141,7 +141,8 @@ export class ProductService {
 
   getProductRecommendations(
     categoryId: string,
-    excludeId: string
+    excludeId: string,
+    size: number = 3
   ): Observable<ApolloQueryResult<ApolloArray<Product>>> {
     return this.apollo
       .query<{ getProductList: ApolloArray<Product> }>({
@@ -159,6 +160,7 @@ export class ProductService {
               },
             },
           },
+          size: size,
         },
       })
       .pipe(
