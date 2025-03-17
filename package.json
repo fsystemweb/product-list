@@ -12,7 +12,8 @@
     "format": "prettier --write \"src/**/*.{ts,html,css,scss,json}\"",
     "lint-staged": "lint-staged",
     "clean-install": "npm cache clean --force && rm -rf node_modules && npm install",
-    "prebuild": "npm run clean-install && node replace-env.js"
+    "prebuild": "node replace-env.js",
+    "prepare": "husky"
   },
   "private": true,
   "dependencies": {
