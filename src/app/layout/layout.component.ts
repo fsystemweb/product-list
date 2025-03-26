@@ -35,7 +35,6 @@ const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
     HeaderComponent,
     SpinnerComponent,
   ],
-  standalone: true,
   templateUrl: './layout.component.html',
   styleUrls: [],
   encapsulation: ViewEncapsulation.None,

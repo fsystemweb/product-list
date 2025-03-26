@@ -4,7 +4,6 @@ import { AppSettings } from '../../config';
 
 @Component({
   selector: 'app-branding',
-  standalone: true,
   imports: [],
   template: `
     <a href="/" class="logodark d-flex align-items-center text-decoration-none gap-20">

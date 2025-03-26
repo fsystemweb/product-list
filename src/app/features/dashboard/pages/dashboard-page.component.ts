@@ -10,7 +10,6 @@ import { CategoryStateService } from '../../../state/category-state.service';
   templateUrl: './dashboard-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MaterialModule, DashboardCardComponent, CategoriesTableComponent],
-  standalone: true,
 })
 export class DashboardPageComponent {
   private route: ActivatedRoute = inject(ActivatedRoute);
