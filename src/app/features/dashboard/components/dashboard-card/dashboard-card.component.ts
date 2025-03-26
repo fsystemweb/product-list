@@ -5,7 +5,6 @@ import { MaterialModule } from '../../../../vendor/material.module';
   templateUrl: './dashboard-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MaterialModule],
-  standalone: true,
   selector: 'app-dashboard-card',
 })
 export class DashboardCardComponent {

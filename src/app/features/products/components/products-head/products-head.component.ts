@@ -7,7 +7,6 @@ import { MaterialModule } from '../../../../vendor/material.module';
   imports: [CommonModule, MaterialModule],
   templateUrl: './products-head.component.html',
   styleUrls: ['./products-head.component.scss'],
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsHeadComponent {

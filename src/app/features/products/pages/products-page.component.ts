@@ -6,6 +6,5 @@ import { ProductsTableComponent } from '../components/products-table/products-ta
   templateUrl: './products-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MaterialModule, ProductsTableComponent],
-  standalone: true,
 })
 export class ProductsPageComponent {}
