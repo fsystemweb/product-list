@@ -1,6 +1,15 @@
 # ProductList
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
+This project is based on the Modernize Angular Free template, which can be found here:
+Modernize Angular Free Template -> link: https://github.com/adminmart/modernize-angular-free/tree/main
+
+Modifications Made:
+
+- Removed Unnecessary Features: Streamlined the template by removing features that were not required for this project.
+- Customized Styling: Adapted the color scheme and styles to align with the project's design requirements.
+- Added Custom Components: Developed and integrated custom components to enhance functionality and personalize the project further.
+
+This tailored approach ensures the project meets its specific needs while maintaining a clean and efficient codebase.
 
 ## Dependencies
 
@@ -23,18 +32,6 @@ Just remember to populate the environment.ts file with your graphql server crede
 
 We use cache first because we don't really need real-time acurrancy.
 
-## Template
-
-This project is based on the Modernize Angular Free template, which can be found here:
-Modernize Angular Free Template -> link: https://github.com/adminmart/modernize-angular-free/tree/main
-
-Modifications Made:
-
-- Removed Unnecessary Features: Streamlined the template by removing features that were not required for this project.
-- Customized Styling: Adapted the color scheme and styles to align with the project's design requirements.
-- Added Custom Components: Developed and integrated custom components to enhance functionality and personalize the project further.
-
-This tailored approach ensures the project meets its specific needs while maintaining a clean and efficient codebase.
 
 ## Icons
 
