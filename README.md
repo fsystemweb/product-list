@@ -11,6 +11,8 @@
 [![Husky](https://img.shields.io/badge/Husky-9.1.7-000000?logo=husky&logoColor=white)](https://typicode.github.io/husky)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+🔗 **Live Demo:** [https://product-list-rose.vercel.app/](https://product-list-rose.vercel.app/)
+
 This project is based on the Modernize Angular Free template, which can be found here:
 Modernize Angular Free Template -> link: https://github.com/adminmart/modernize-angular-free/tree/main
 
@@ -21,8 +23,6 @@ Modifications Made:
 - Added Custom Components: Developed and integrated custom components to enhance functionality and personalize the project further.
 
 This tailored approach ensures the project meets its specific needs while maintaining a clean and efficient codebase.
-
-
 
 ## Api
 
