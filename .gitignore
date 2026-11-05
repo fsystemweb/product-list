@@ -44,3 +44,7 @@ Thumbs.db
 # Deployment parameters
 .env
 /src/environments/environment.ts
+
+# Local env files (never commit secrets)
+.env.local
+.env.*.local
