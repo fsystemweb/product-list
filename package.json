@@ -13,7 +13,9 @@
     "lint-staged": "lint-staged",
     "clean-install": "npm cache clean --force && rm -rf node_modules && npm install",
     "prebuild": "node replace-env.js",
-    "prepare": "husky"
+    "prepare": "husky",
+    "codegen": "graphql-codegen --config codegen.ts",
+    "codegen:check": "graphql-codegen --config codegen.ts && git diff --exit-code -- src/app/graphql/generated.ts"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +44,11 @@
     "@angular-devkit/build-angular": "^19.2.1",
     "@angular/cli": "^19.2.1",
     "@angular/compiler-cli": "^19.2.0",
+    "@graphql-codegen/cli": "^6.3.1",
+    "@graphql-codegen/typed-document-node": "^5.0.0",
+    "@graphql-codegen/typescript": "^5.0.10",
+    "@graphql-codegen/typescript-document-nodes": "^4.0.16",
+    "@graphql-codegen/typescript-operations": "^4.6.1",
     "@types/jest": "^29.5.14",
     "angular-eslint": "19.2.1",
     "eslint": "^9.22.0",

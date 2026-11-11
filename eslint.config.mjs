@@ -96,7 +96,16 @@ export default [
     },
     rules: {}
   },
-  
+
+  // GraphQL Codegen output — never edited by hand
+  {
+    files: ['src/app/graphql/generated.ts'],
+    rules: {
+      'import/group-exports': 'off',
+      'import/exports-last': 'off'
+    }
+  },
+
   // Angular templates
   {
     files: ['**/*.html'],

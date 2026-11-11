@@ -1,11 +1,20 @@
 import { inject, Injectable } from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo } from 'apollo-angular';
-import { gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from '../models/product';
 import { ApolloArray } from '../models/arrays-apollo';
+import {
+  GetProductBySlugDocument,
+  GetProductDocument,
+  GetProductRecommendationsDocument,
+  GetProductsDocument,
+} from '../graphql/generated';
+import type {
+  GetProductBySlugQueryVariables,
+  GetProductRecommendationsQueryVariables,
+} from '../graphql/generated';
 
 @Injectable({
   providedIn: 'root',
@@ -13,130 +22,43 @@ import { ApolloArray } from '../models/arrays-apollo';
 export class ProductService {
   private apollo: Apollo = inject(Apollo);
 
-  private readonly GET_PRODUCTS = gql`
-    query GetProducts {
-      getProductList {
-        items {
-          _id
-          category {
-            _id
-            name
-            slug
-          }
-          description
-          image
-          name
-          price
-          slug
-        }
-        total
-      }
-    }
-  `;
-
-  private readonly GET_PRODUCT = gql`
-    query GetProduct($_id: ID!) {
-      getProduct(_id: $_id) {
-        _id
-        slug
-        name
-        description
-        image
-        price
-        category {
-          _id
-          name
-          slug
-        }
-      }
-    }
-  `;
-
-  private readonly GET_PRODUCT_BY_SLUG = gql`
-    query ($where: TSWhereProductInput!) {
-      getProductList(where: $where) {
-        items {
-          _id
-          category {
-            _id
-            name
-            slug
-          }
-          description
-          image
-          name
-          price
-          slug
-        }
-      }
-    }
-  `;
-
-  private readonly GET_PRODUCT_RECOMMENDATIONS = gql`
-    query ($where: TSWhereProductInput!, $size: Int) {
-      getProductList(where: $where, from: 0, size: $size) {
-        items {
-          _id
-          category {
-            _id
-            name
-            slug
-          }
-          description
-          image
-          name
-          price
-          slug
-        }
-      }
-    }
-  `;
-
   getProducts(): Observable<ApolloQueryResult<ApolloArray<Product>>> {
-    return this.apollo
-      .query<{ getProductList: ApolloArray<Product> }>({
-        query: this.GET_PRODUCTS,
-      })
-      .pipe(
-        map(result => ({
-          ...result,
-          data: result.data.getProductList,
-        }))
-      );
+    return this.apollo.query({ query: GetProductsDocument }).pipe(
+      map(result => ({
+        ...result,
+        data: result.data?.getProductList as ApolloArray<Product>,
+      }))
+    );
   }
 
   getProduct(id: string): Observable<ApolloQueryResult<Product>> {
     return this.apollo
-      .query<{ getProduct: Product }>({
-        query: this.GET_PRODUCT,
+      .query({
+        query: GetProductDocument,
         variables: { _id: id },
       })
       .pipe(
         map(result => ({
           ...result,
-          data: result.data.getProduct,
+          data: result.data?.getProduct as Product,
         }))
       );
   }
 
   getProductBySlug(slug: string): Observable<ApolloQueryResult<Product>> {
-    return this.apollo
-      .query<{ getProductList: ApolloArray<Product> }>({
-        query: this.GET_PRODUCT_BY_SLUG,
-        variables: {
-          where: {
-            slug: {
-              eq: slug,
-            },
-          },
+    const variables: GetProductBySlugQueryVariables = {
+      where: {
+        slug: {
+          eq: slug,
         },
-      })
-      .pipe(
-        map(result => ({
-          ...result,
-          data: result.data.getProductList.items[0],
-        }))
-      );
+      },
+    };
+    return this.apollo.query({ query: GetProductBySlugDocument, variables }).pipe(
+      map(result => ({
+        ...result,
+        data: result.data?.getProductList.items[0] as Product,
+      }))
+    );
   }
 
   getProductRecommendations(
@@ -144,30 +66,27 @@ export class ProductService {
     excludeId: string,
     size: number = 3
   ): Observable<ApolloQueryResult<ApolloArray<Product>>> {
-    return this.apollo
-      .query<{ getProductList: ApolloArray<Product> }>({
-        query: this.GET_PRODUCT_RECOMMENDATIONS,
-        variables: {
-          where: {
-            category: {
-              _id: {
-                eq: categoryId,
-              },
-            },
-            NOT: {
-              _id: {
-                eq: excludeId,
-              },
-            },
+    const variables: GetProductRecommendationsQueryVariables = {
+      where: {
+        category: {
+          _id: {
+            eq: categoryId,
           },
-          size: size,
         },
-      })
-      .pipe(
-        map(result => ({
-          ...result,
-          data: result.data.getProductList,
-        }))
-      );
+        NOT: {
+          _id: {
+            eq: excludeId,
+          },
+        },
+      },
+      size: size,
+    };
+    return this.apollo.query({ query: GetProductRecommendationsDocument, variables }).pipe(
+      map(result => ({
+        ...result,
+        // The recommendations query selects only `items`, not `total`.
+        data: result.data?.getProductList as unknown as ApolloArray<Product>,
+      }))
+    );
   }
 }

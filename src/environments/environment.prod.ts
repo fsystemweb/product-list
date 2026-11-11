@@ -3,4 +3,5 @@ export const environment = {
   graphqlServerUrl: '{{GRAPHQL_SERVER_URL}}',
   graphqlServerId: '{{GRAPHQL_SERVER_ID}}',
   graphqlServerToken: '{{GRAPHQL_SERVER_TOKEN}}',
+  graphqlMockMode: false,
 };

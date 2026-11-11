@@ -25,7 +25,7 @@ import { provideToastr } from 'ngx-toastr';
 import { MaterialModule } from './vendor/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideApollo } from 'apollo-angular';
-import { apolloConfig } from './appollo.config';
+import { apolloConfig } from './apollo.config';
 import { CategoryStateService } from './state/category-state.service';
 
 export const appConfig: ApplicationConfig = {
