@@ -1,11 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo } from 'apollo-angular';
-import { gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Category } from '../models/category';
 import { ApolloArray } from '../models/arrays-apollo';
+import { GetCategoriesDocument, GetCategoryDocument } from '../graphql/generated';
+import type { GetCategoryQueryVariables } from '../graphql/generated';
 
 @Injectable({
   providedIn: 'root',
@@ -13,70 +14,24 @@ import { ApolloArray } from '../models/arrays-apollo';
 export class CategoryService {
   private apollo: Apollo = inject(Apollo);
 
-  private readonly GET_CATEGORIES = gql`
-    query GetCategories {
-      getCategoryList {
-        items {
-          _id
-          name
-          products {
-            _id
-            description
-            name
-            price
-            slug
-          }
-          slug
-        }
-        total
-      }
-    }
-  `;
-
-  private readonly GET_CATEGORY = gql`
-    query GetCategory($_id: ID!) {
-      getCategory(_id: $_id) {
-        _id
-        name
-        products {
-          _id
-          description
-          image
-          name
-          price
-          slug
-        }
-        slug
-      }
-    }
-  `;
-
   getCategories(): Observable<ApolloQueryResult<ApolloArray<Category>>> {
-    return this.apollo
-      .query<{ getCategoryList: ApolloArray<Category> }>({
-        query: this.GET_CATEGORIES,
-      })
-      .pipe(
-        map(result => ({
-          ...result,
-          data: result.data.getCategoryList,
-        }))
-      );
+    return this.apollo.query({ query: GetCategoriesDocument }).pipe(
+      map(result => ({
+        ...result,
+        data: result.data?.getCategoryList as ApolloArray<Category>,
+      }))
+    );
   }
 
   getCategory(id: string): Observable<ApolloQueryResult<Category>> {
-    return this.apollo
-      .query<{ getCategory: Category }>({
-        query: this.GET_CATEGORY,
-        variables: {
-          _id: id,
-        },
-      })
-      .pipe(
-        map(result => ({
-          ...result,
-          data: result.data.getCategory,
-        }))
-      );
+    const variables: GetCategoryQueryVariables = {
+      _id: id,
+    };
+    return this.apollo.query({ query: GetCategoryDocument, variables }).pipe(
+      map(result => ({
+        ...result,
+        data: result.data?.getCategory as Category,
+      }))
+    );
   }
 }

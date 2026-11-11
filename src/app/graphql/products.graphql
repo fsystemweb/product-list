@@ -1,0 +1,70 @@
+query GetProducts {
+  getProductList {
+    items {
+      _id
+      category {
+        _id
+        name
+        slug
+      }
+      description
+      image
+      name
+      price
+      slug
+    }
+    total
+  }
+}
+
+query GetProduct($_id: ID!) {
+  getProduct(_id: $_id) {
+    _id
+    slug
+    name
+    description
+    image
+    price
+    category {
+      _id
+      name
+      slug
+    }
+  }
+}
+
+query GetProductBySlug($where: TSWhereProductInput!) {
+  getProductList(where: $where) {
+    items {
+      _id
+      category {
+        _id
+        name
+        slug
+      }
+      description
+      image
+      name
+      price
+      slug
+    }
+  }
+}
+
+query GetProductRecommendations($where: TSWhereProductInput!, $size: Int) {
+  getProductList(where: $where, from: 0, size: $size) {
+    items {
+      _id
+      category {
+        _id
+        name
+        slug
+      }
+      description
+      image
+      name
+      price
+      slug
+    }
+  }
+}

@@ -1,0 +1,33 @@
+query GetCategories {
+  getCategoryList {
+    items {
+      _id
+      name
+      products {
+        _id
+        description
+        name
+        price
+        slug
+      }
+      slug
+    }
+    total
+  }
+}
+
+query GetCategory($_id: ID!) {
+  getCategory(_id: $_id) {
+    _id
+    name
+    products {
+      _id
+      description
+      image
+      name
+      price
+      slug
+    }
+    slug
+  }
+}

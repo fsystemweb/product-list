@@ -1,0 +1,86 @@
+# GraphQL SDL describing the Takeshape backend contract used by this demo.
+#
+# This is the local, self-contained source for GraphQL Codegen (typed query
+# documents). It covers the operations the catalogue runs; when the backend
+# changes shape, update this file and run `npm run codegen`.
+
+type Query {
+  product(_id: ID!): Product
+  getProduct(_id: ID!): Product
+  getProductList(where: TSWhereProductInput, from: Int, size: Int): ProductListResponse!
+  category(_id: ID!): Category
+  getCategory(_id: ID!): Category
+  getCategoryList: CategoryListResponse!
+}
+
+type Product {
+  _id: String!
+  slug: String!
+  name: String!
+  description: String
+  image: String
+  price: Float
+  category: Category
+}
+
+type Category {
+  _id: String!
+  slug: String!
+  name: String!
+  products: [Product!]!
+}
+
+type ProductListResponse {
+  items: [Product!]!
+  total: Int!
+}
+
+type CategoryListResponse {
+  items: [Category!]!
+  total: Int!
+}
+
+input TSWhereProductInput {
+  _id: TSWhereIDInput
+  slug: TSWhereStringInput
+  name: TSWhereStringInput
+  price: TSWhereFloatInput
+  category: TSWhereCategoryInput
+  AND: [TSWhereProductInput!]
+  OR: [TSWhereProductInput!]
+  NOT: TSWhereProductInput
+}
+
+input TSWhereCategoryInput {
+  _id: TSWhereIDInput
+  slug: TSWhereStringInput
+  name: TSWhereStringInput
+  products: TSWhereProductInput
+  AND: [TSWhereCategoryInput!]
+  OR: [TSWhereCategoryInput!]
+  NOT: TSWhereCategoryInput
+}
+
+input TSWhereIDInput {
+  eq: String
+  ne: String
+  in: [String!]
+  inIn: [String!]
+}
+
+input TSWhereStringInput {
+  eq: String
+  ne: String
+  in: [String!]
+  contains: String
+  inIn: [String!]
+}
+
+input TSWhereFloatInput {
+  eq: Float
+  ne: Float
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+}
